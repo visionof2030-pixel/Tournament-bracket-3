@@ -1,0 +1,3099 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>🏆 الأدوار النهائية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+    <style>
+        /* ============================================================
+           ROOT & RESET – عصري، نظيف، أنيق
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --bg-primary: #0b0f1a;
+            --bg-secondary: #111b2b;
+            --bg-card: rgba(18, 28, 46, 0.88);
+            --bg-card-hover: rgba(30, 50, 80, 0.95);
+            --bg-input: rgba(255, 255, 255, 0.03);
+            --gold: #e4b34a;
+            --gold-light: #f3d88a;
+            --gold-glow: rgba(212, 167, 69, 0.20);
+            --gold-gradient: linear-gradient(145deg, #f3d88a, #c99a2e);
+            --text-primary: #ecf3fa;
+            --text-secondary: #8aa0c0;
+            --text-muted: #4f6b8a;
+            --success: #31d67a;
+            --success-bg: rgba(49, 214, 122, 0.12);
+            --danger: #f25a6a;
+            --danger-bg: rgba(242, 90, 106, 0.12);
+            --info: #4a9eff;
+            --info-bg: rgba(74, 158, 255, 0.12);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-gold: rgba(212, 167, 69, 0.30);
+            --border-gold-strong: rgba(212, 167, 69, 0.50);
+            --shadow-card: 0 24px 60px rgba(0, 0, 0, 0.70), 0 0 0 1px rgba(255, 255, 255, 0.02);
+            --shadow-glow: 0 0 100px rgba(212, 167, 69, 0.03);
+            --shadow-hover: 0 32px 80px rgba(0, 0, 0, 0.80), 0 0 0 1px rgba(212, 167, 69, 0.15);
+            --radius-lg: 32px;
+            --radius-md: 20px;
+            --radius-sm: 16px;
+            --transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f2f6fe;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.94);
+            --bg-card-hover: rgba(255, 255, 255, 0.99);
+            --bg-input: rgba(0, 0, 0, 0.02);
+            --text-primary: #14273e;
+            --text-secondary: #3d5a78;
+            --text-muted: #92a9c9;
+            --border-subtle: rgba(0, 0, 0, 0.06);
+            --border-gold: rgba(212, 167, 69, 0.35);
+            --border-gold-strong: rgba(212, 167, 69, 0.60);
+            --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            --shadow-hover: 0 24px 64px rgba(0, 0, 0, 0.10), 0 0 0 1px rgba(212, 167, 69, 0.20);
+            --shadow-glow: 0 0 100px rgba(212, 167, 69, 0.06);
+            --gold-glow: rgba(212, 167, 69, 0.12);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            font-size: 14px;
+            line-height: 1.6;
+            transition: var(--transition);
+            padding: 6px;
+            display: flex;
+            justify-content: center;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: 20px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 20px;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ============================================================
+           HEADER – بسيط للـ iframe
+           ============================================================ */
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px 8px;
+            padding: 4px 12px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-gold);
+            margin-bottom: 12px;
+            backdrop-filter: blur(14px);
+            box-shadow: var(--shadow-card);
+            min-height: 36px;
+        }
+
+        .header .actions {
+            display: flex;
+            gap: 3px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .header .actions button {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 3px 10px;
+            border-radius: 40px;
+            font-size: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            letter-spacing: 0.2px;
+            backdrop-filter: blur(4px);
+        }
+        .header .actions button:hover {
+            background: var(--gold-glow);
+            border-color: var(--gold);
+            color: var(--gold-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(212, 167, 69, 0.10);
+        }
+
+        /* ============================================================
+           شريط المعلومات
+           ============================================================ */
+        .info-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+            padding: 4px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(14px);
+            box-shadow: var(--shadow-card);
+            min-height: 32px;
+        }
+        .info-bar .update-time {
+            font-size: 0.55rem;
+            color: var(--text-secondary);
+        }
+        .info-bar .btn-refresh {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 3px 12px;
+            border-radius: 40px;
+            font-size: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .info-bar .btn-refresh:hover {
+            background: var(--gold-glow);
+            border-color: var(--gold);
+            color: var(--gold-light);
+            transform: translateY(-1px);
+        }
+
+        /* ============================================================
+           بطاقات المباريات – تصميم إبداعي مع حواف ذهبية
+           ============================================================ */
+        .round-section {
+            background: var(--bg-card);
+            border: 2px solid var(--border-gold);
+            border-radius: var(--radius-lg);
+            padding: 20px 20px 16px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+            backdrop-filter: blur(14px);
+            position: relative;
+            overflow: hidden;
+        }
+        .round-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+            pointer-events: none;
+            border-radius: 50%;
+            opacity: 0.25;
+        }
+        .round-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+            pointer-events: none;
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+
+        .round-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            padding: 4px 0 14px 0;
+            border-bottom: 2px solid var(--border-gold);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.3px;
+        }
+        .round-title .badge-count {
+            font-size: 0.6rem;
+            font-weight: 700;
+            background: var(--gold-glow);
+            padding: 2px 16px;
+            border-radius: 40px;
+            color: var(--gold-light);
+            border: 1px solid var(--border-gold);
+        }
+        .round-title .trophy-icon {
+            font-size: 1.2rem;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== بطاقة المباراة – تصميم كبير مع حواف ذهبية ===== */
+        .match-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.005));
+            border: 2px solid var(--border-gold);
+            border-radius: var(--radius-md);
+            padding: 22px 24px 18px;
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(212, 167, 69, 0.05);
+        }
+        /* تأثير الضوء الذهبي المتوهج */
+        .match-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: var(--transition);
+            border-radius: 50%;
+            filter: blur(1px);
+        }
+        .match-card:hover::before {
+            opacity: 0.8;
+            left: 10%;
+            right: 10%;
+        }
+        /* تأثير البريق الزاوي */
+        .match-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: var(--radius-md);
+            background: radial-gradient(circle at 20% 20%, var(--gold-glow), transparent 50%);
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        .match-card:hover::after {
+            opacity: 0.15;
+        }
+        .match-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-gold-strong);
+            transform: translateY(-4px) scale(1.005);
+            box-shadow: var(--shadow-hover), 0 0 60px rgba(212, 167, 69, 0.05);
+        }
+        /* إطار ذهبي متوهج عند التمرير */
+        .match-card::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: var(--radius-md);
+            background: var(--gold-gradient);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+            filter: blur(4px);
+        }
+        .match-card:hover::after {
+            opacity: 0.08;
+        }
+
+        .match-card.restricted {
+            background: rgba(212, 167, 69, 0.04) !important;
+            border-color: var(--border-gold) !important;
+        }
+        .match-card.restricted:hover {
+            background: rgba(212, 167, 69, 0.08) !important;
+            border-color: var(--border-gold-strong) !important;
+        }
+
+        /* صف الفرق والنتيجة – تصميم كبير */
+        .match-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .match-team {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            min-width: 120px;
+            flex: 1;
+            padding: 4px 0;
+            position: relative;
+        }
+        .match-team .flag {
+            font-size: 2.2rem;
+            line-height: 1;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+            transition: var(--transition);
+        }
+        .match-card:hover .match-team .flag {
+            transform: scale(1.08) rotate(-3deg);
+        }
+        .match-team .name {
+            font-size: 1.05rem;
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -0.2px;
+            transition: var(--transition);
+        }
+        .match-card:hover .match-team .name {
+            color: var(--gold-light);
+        }
+        .match-team .name.restricted-name {
+            color: var(--gold-light);
+            font-style: italic;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .match-team.team-home {
+            justify-content: flex-start;
+        }
+        .match-team.team-away {
+            justify-content: flex-end;
+        }
+
+        /* خط فاصل ذهبي بين الفريقين */
+        .match-team.team-home::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: 10%;
+            height: 80%;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border-gold), transparent);
+            opacity: 0.3;
+        }
+        .match-card:hover .match-team.team-home::after {
+            opacity: 0.6;
+        }
+
+        .match-score {
+            font-weight: 900;
+            font-size: 1.6rem;
+            min-width: 80px;
+            text-align: center;
+            padding: 0 12px;
+            font-variant-numeric: tabular-nums;
+            position: relative;
+            z-index: 1;
+        }
+        .match-score .score-number {
+            color: var(--gold-light);
+            text-shadow: 0 0 40px rgba(212, 167, 69, 0.10);
+            transition: var(--transition);
+        }
+        .match-card:hover .match-score .score-number {
+            text-shadow: 0 0 60px rgba(212, 167, 69, 0.20);
+        }
+        .match-score .score-number.vs {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 4px 20px;
+            border-radius: 40px;
+            border: 1px solid var(--border-gold);
+            transition: var(--transition);
+        }
+        .match-card:hover .match-score .score-number.vs {
+            border-color: var(--border-gold-strong);
+            color: var(--gold-light);
+            background: var(--gold-glow);
+        }
+        .match-score .score-number.finished {
+            color: var(--success);
+        }
+        .match-score .penalty {
+            display: block;
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-top: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* صف التفاصيل – مع اسم اليوم */
+        .match-meta-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px 14px;
+            justify-content: center;
+            padding: 6px 0;
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid rgba(212, 167, 69, 0.08);
+            border-bottom: 1px solid rgba(212, 167, 69, 0.08);
+        }
+        .match-meta-row .meta-item {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 3px 14px;
+            border-radius: 40px;
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .match-card:hover .match-meta-row .meta-item {
+            border-color: var(--border-gold);
+            background: var(--gold-glow);
+            color: var(--gold-light);
+        }
+        .match-meta-row .meta-item .icon {
+            font-size: 0.7rem;
+        }
+        .match-meta-row .meta-item .day-name {
+            font-weight: 700;
+            color: var(--gold-light);
+            font-size: 0.6rem;
+        }
+        .match-meta-row .status-badge {
+            font-size: 0.6rem;
+            padding: 3px 16px;
+            border-radius: 40px;
+            font-weight: 700;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+        .match-card:hover .match-meta-row .status-badge {
+            transform: scale(1.02);
+        }
+        .match-meta-row .status-badge.finished {
+            background: var(--success-bg);
+            color: var(--success);
+            border-color: rgba(49, 214, 122, 0.20);
+        }
+        .match-meta-row .status-badge.live {
+            background: var(--danger-bg);
+            color: var(--danger);
+            border-color: rgba(242, 90, 106, 0.20);
+            animation: pulse 1.5s infinite;
+        }
+        .match-meta-row .status-badge.not-started {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            border-color: var(--border-subtle);
+        }
+
+        @keyframes pulse {
+            0%,
+            100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ===== تحليل الذكاء الاصطناعي – تصميم مميز ===== */
+        .ai-analysis {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005));
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-sm);
+            padding: 12px 18px;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(4px);
+            transition: var(--transition);
+        }
+        .match-card:hover .ai-analysis {
+            border-color: var(--border-gold-strong);
+            background: rgba(212, 167, 69, 0.03);
+        }
+        .ai-analysis .ai-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--gold-light);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            background: var(--gold-glow);
+            padding: 2px 14px;
+            border-radius: 40px;
+            border: 1px solid var(--border-gold);
+        }
+        .ai-analysis .ai-bars {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-analysis .ai-bars .bar-track {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+        }
+        .ai-analysis .ai-bars .bar-track .bar {
+            height: 100%;
+            transition: width 1s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+        .ai-analysis .ai-bars .bar-track .bar.home {
+            background: linear-gradient(90deg, #31d67a, #2ecc71);
+        }
+        .ai-analysis .ai-bars .bar-track .bar.away {
+            background: linear-gradient(90deg, #f25a6a, #e74c3c);
+        }
+        .ai-analysis .ai-percent {
+            font-weight: 900;
+            font-size: 0.8rem;
+            min-width: 40px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        .ai-analysis .ai-percent.home {
+            color: var(--success);
+        }
+        .ai-analysis .ai-percent.away {
+            color: var(--danger);
+        }
+        .ai-analysis .ai-note {
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        /* ===== أزرار الإجراءات – تصميم أنيق ===== */
+        .match-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-subtle);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* زر توقع الآن – بنفس لون البطاقة مع حواف ذهبية */
+        .btn-predict {
+            background: var(--bg-card);
+            border: 2px solid var(--border-gold);
+            color: var(--gold-light);
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 120px;
+            justify-content: center;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        /* تأثير توهج ذهبي عند التمرير */
+        .btn-predict::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, var(--gold-glow), transparent 60%);
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        .btn-predict:hover:not(:disabled)::before {
+            opacity: 0.3;
+        }
+        .btn-predict:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.03);
+            border-color: var(--border-gold-strong);
+            box-shadow: 0 10px 40px rgba(212, 167, 69, 0.25), inset 0 0 40px rgba(212, 167, 69, 0.05);
+            background: var(--bg-card-hover);
+        }
+        .btn-predict:active:not(:disabled) {
+            transform: scale(0.97);
+        }
+        .btn-predict:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none;
+        }
+        .btn-predict.saved {
+            background: var(--success-bg);
+            border: 2px solid rgba(49, 214, 122, 0.30);
+            color: var(--success);
+            box-shadow: none;
+        }
+        .btn-predict.saved:disabled {
+            opacity: 0.7;
+        }
+        /* أيقونة ذهبية متحركة */
+        .btn-predict .btn-icon {
+            display: inline-block;
+            transition: var(--transition);
+        }
+        .btn-predict:hover:not(:disabled) .btn-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .btn-stats {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-stats:hover {
+            background: var(--info-bg);
+            border-color: var(--info);
+            color: var(--info);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 24px rgba(74, 158, 255, 0.12);
+        }
+
+        .btn-view-predictions {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-view-predictions:hover {
+            background: var(--gold-glow);
+            border-color: var(--gold);
+            color: var(--gold-light);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 24px rgba(212, 167, 69, 0.12);
+        }
+
+        /* ===== رسالة المباريات المقيدة ===== */
+        .restricted-message {
+            background: linear-gradient(135deg, var(--gold-glow), transparent);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-sm);
+            padding: 8px 16px;
+            font-size: 0.6rem;
+            color: var(--gold-light);
+            text-align: center;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== لا توجد مباريات ===== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 16px;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.01);
+            border-radius: var(--radius-lg);
+            border: 1px dashed var(--border-subtle);
+            font-size: 0.85rem;
+        }
+        .empty-state .icon {
+            font-size: 2.8rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* ============================================================
+           MODALS – مطابقة للتصميم المطلوب
+           ============================================================ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.80);
+            backdrop-filter: blur(24px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInModal 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-gold);
+            border-radius: var(--radius-lg);
+            padding: 24px 28px;
+            max-width: 520px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.60);
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            left: 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .modal-close:hover {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+        .modal-title {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            margin-bottom: 4px;
+            padding-top: 4px;
+        }
+        .modal-subtitle {
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+        }
+        .modal-teams {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        .modal-teams .flag {
+            font-size: 1.8rem;
+        }
+        .modal-teams .vs {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .modal-input {
+            margin: 10px 0;
+        }
+        .modal-input input {
+            width: 100%;
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            text-align: center;
+        }
+        .modal-input input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 40px rgba(212, 167, 69, 0.05);
+        }
+        .modal-input input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .modal-options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin: 10px 0;
+        }
+        .modal-options label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            border: 2px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.8rem;
+        }
+        .modal-options label:hover {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .modal-options input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold);
+        }
+        .modal-options .opt-label {
+            font-weight: 700;
+        }
+        .modal-options .opt-sub {
+            font-size: 0.6rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-submit {
+            width: 100%;
+            padding: 10px;
+            background: var(--gold-gradient);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: #0b0f1a;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            margin-top: 8px;
+        }
+        .modal-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 167, 69, 0.20);
+        }
+        .modal-submit:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .modal-message {
+            margin-top: 10px;
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        .modal-message.success {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+        .modal-message.error {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+        .modal-message.warning {
+            background: var(--gold-glow);
+            color: var(--gold-light);
+        }
+        .modal-message.info {
+            background: var(--info-bg);
+            color: var(--info);
+        }
+
+        .user-status {
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            margin: 6px 0;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        .user-status.existing {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+        .user-status.new {
+            background: var(--gold-glow);
+            color: var(--gold-light);
+        }
+
+        /* ===== نافذة الإحصائيات ===== */
+        .stats-grid-modal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 10px;
+        }
+        .stats-grid-modal .team-stats {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+        }
+        .stats-grid-modal .team-stats .team-name {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--gold-light);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+        }
+        .stats-grid-modal .team-stats .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 3px 0;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.65rem;
+        }
+        .stats-grid-modal .team-stats .stat-row .label {
+            color: var(--text-secondary);
+        }
+        .stats-grid-modal .team-stats .stat-row .value {
+            font-weight: 700;
+        }
+        .stats-grid-modal .team-stats .stat-row .value.gold {
+            color: var(--gold-light);
+        }
+        .stats-grid-modal .team-stats .stat-row .value.green {
+            color: var(--success);
+        }
+        .stats-grid-modal .team-stats .stat-row .value.red {
+            color: var(--danger);
+        }
+        .stats-grid-modal .team-stats .streak {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-top: 6px;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-family: monospace;
+        }
+        .stats-grid-modal .team-stats .scorers {
+            margin-top: 6px;
+            font-size: 0.6rem;
+        }
+        .stats-grid-modal .team-stats .scorers .scorer {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2px 10px;
+            border-radius: 40px;
+            margin: 2px;
+            font-size: 0.55rem;
+        }
+        .stats-grid-modal .team-stats .scorers .scorer .goals {
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .modal-btn-close {
+            display: block;
+            margin: 14px auto 0;
+            padding: 8px 28px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 40px;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        .modal-btn-close:hover {
+            background: var(--gold-glow);
+            border-color: var(--gold);
+            color: var(--gold-light);
+        }
+
+        /* ===== نافذة التوقعات ===== */
+        .predictions-list {
+            max-height: 350px;
+            overflow-y: auto;
+            padding: 4px 0;
+        }
+        .prediction-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 8px 14px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            transition: var(--transition);
+        }
+        .prediction-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--border-gold);
+        }
+        .prediction-item .user {
+            font-weight: 700;
+            color: var(--gold-light);
+            cursor: pointer;
+        }
+        .prediction-item .user:hover {
+            text-decoration: underline;
+        }
+        .prediction-item .pred {
+            font-weight: 700;
+        }
+        .prediction-item .pred.correct {
+            color: var(--success);
+        }
+        .prediction-item .pred.wrong {
+            color: var(--danger);
+        }
+        .prediction-item .status {
+            font-size: 0.55rem;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-weight: 700;
+        }
+        .prediction-item .status.correct {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+        .prediction-item .status.wrong {
+            background: var(--danger-bg);
+            color: var(--danger);
+        }
+        .prediction-item .status.pending {
+            background: var(--gold-glow);
+            color: var(--gold-light);
+        }
+        .prediction-item .time {
+            font-size: 0.55rem;
+            color: var(--text-secondary);
+        }
+
+        .prob-bar-container {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            margin: 8px 0;
+            border: 1px solid var(--border-subtle);
+        }
+        .prob-bar-container .prob-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+        .prob-bar-container .prob-bar {
+            display: flex;
+            height: 22px;
+            border-radius: 40px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .prob-bar-container .prob-bar .segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: #0b0f1a;
+            transition: width 0.6s ease;
+            min-width: 24px;
+        }
+        .prob-bar-container .prob-bar .segment.home {
+            background: linear-gradient(90deg, #2ecc71, #31d67a);
+        }
+        .prob-bar-container .prob-bar .segment.away {
+            background: linear-gradient(90deg, #e74c3c, #f25a6a);
+        }
+
+        /* ============================================================
+           TOAST
+           ============================================================ */
+        .copy-toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(49, 214, 122, 0.96);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            z-index: 99999;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.30);
+            animation: fadeInModal 0.3s ease;
+            backdrop-filter: blur(12px);
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+        }
+        .copy-toast.show {
+            display: block;
+        }
+        .copy-toast.error {
+            background: rgba(242, 90, 106, 0.96);
+        }
+
+        /* ============================================================
+           استجابة
+           ============================================================ */
+        @media (max-width: 640px) {
+            body {
+                padding: 4px;
+            }
+            .header {
+                padding: 3px 8px;
+                min-height: 30px;
+                margin-bottom: 8px;
+            }
+            .header .actions button {
+                font-size: 0.45rem;
+                padding: 2px 8px;
+            }
+            .info-bar {
+                padding: 3px 10px;
+                gap: 4px;
+                margin-bottom: 8px;
+                min-height: 28px;
+            }
+            .info-bar .update-time {
+                font-size: 0.45rem;
+            }
+            .info-bar .btn-refresh {
+                font-size: 0.45rem;
+                padding: 2px 8px;
+            }
+            .round-section {
+                padding: 12px 12px 10px;
+                margin-bottom: 12px;
+                border-radius: var(--radius-md);
+            }
+            .round-title {
+                font-size: 0.85rem;
+                padding: 2px 0 10px 0;
+                margin-bottom: 10px;
+                gap: 8px;
+            }
+            .round-title .badge-count {
+                font-size: 0.5rem;
+                padding: 1px 10px;
+            }
+            .round-title .trophy-icon {
+                font-size: 0.9rem;
+            }
+            .match-grid {
+                gap: 10px;
+            }
+            .match-card {
+                padding: 14px 14px 12px;
+                gap: 10px;
+                border-radius: var(--radius-sm);
+                border-width: 2px;
+            }
+            .match-row {
+                gap: 6px 10px;
+            }
+            .match-team {
+                font-size: 0.8rem;
+                min-width: 70px;
+                gap: 6px;
+            }
+            .match-team .flag {
+                font-size: 1.5rem;
+            }
+            .match-team .name {
+                font-size: 0.75rem;
+            }
+            .match-team .name.restricted-name {
+                font-size: 0.65rem;
+            }
+            .match-team.team-home::after {
+                display: none;
+            }
+            .match-score {
+                font-size: 1.1rem;
+                min-width: 50px;
+                padding: 0 4px;
+            }
+            .match-score .score-number.vs {
+                font-size: 0.8rem;
+                padding: 2px 12px;
+            }
+            .match-score .penalty {
+                font-size: 0.45rem;
+                padding: 1px 6px;
+            }
+            .match-meta-row {
+                gap: 4px 8px;
+                padding: 3px 0;
+            }
+            .match-meta-row .meta-item {
+                font-size: 0.5rem;
+                padding: 2px 10px;
+            }
+            .match-meta-row .meta-item .day-name {
+                font-size: 0.5rem;
+            }
+            .match-meta-row .status-badge {
+                font-size: 0.5rem;
+                padding: 2px 10px;
+            }
+            .ai-analysis {
+                padding: 8px 12px;
+                gap: 6px 10px;
+                border-radius: var(--radius-sm);
+            }
+            .ai-analysis .ai-label {
+                font-size: 0.5rem;
+                padding: 1px 10px;
+            }
+            .ai-analysis .ai-bars {
+                min-width: 80px;
+                gap: 4px;
+            }
+            .ai-analysis .ai-bars .bar-track {
+                height: 5px;
+            }
+            .ai-analysis .ai-percent {
+                font-size: 0.6rem;
+                min-width: 28px;
+            }
+            .ai-analysis .ai-note {
+                font-size: 0.45rem;
+            }
+            .match-actions {
+                gap: 5px;
+                padding-top: 8px;
+                flex-wrap: wrap;
+            }
+            .btn-predict {
+                font-size: 0.6rem;
+                padding: 7px 16px;
+                min-width: 80px;
+                gap: 4px;
+                border-width: 2px;
+            }
+            .btn-stats,
+            .btn-view-predictions {
+                font-size: 0.5rem;
+                padding: 7px 12px;
+            }
+            .restricted-message {
+                font-size: 0.5rem;
+                padding: 5px 10px;
+            }
+            .modal-content {
+                padding: 16px 18px;
+                max-width: 98%;
+                border-radius: var(--radius-md);
+            }
+            .modal-title {
+                font-size: 0.9rem;
+            }
+            .modal-teams {
+                font-size: 0.8rem;
+                gap: 6px;
+            }
+            .modal-teams .flag {
+                font-size: 1.4rem;
+            }
+            .stats-grid-modal {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            .stats-grid-modal .team-stats {
+                padding: 10px;
+            }
+            .stats-grid-modal .team-stats .team-name {
+                font-size: 0.75rem;
+            }
+            .stats-grid-modal .team-stats .stat-row {
+                font-size: 0.55rem;
+            }
+            .prediction-item {
+                font-size: 0.65rem;
+                flex-wrap: wrap;
+                gap: 3px;
+                padding: 6px 10px;
+            }
+            .prob-bar-container .prob-bar {
+                height: 16px;
+            }
+            .prob-bar-container .prob-bar .segment {
+                font-size: 0.5rem;
+                min-width: 18px;
+            }
+            .copy-toast {
+                font-size: 0.65rem;
+                padding: 6px 16px;
+                bottom: 16px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .match-card {
+                padding: 28px 32px 22px;
+            }
+            .match-team .flag {
+                font-size: 2.6rem;
+            }
+            .match-team .name {
+                font-size: 1.2rem;
+            }
+            .match-score {
+                font-size: 1.8rem;
+                min-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- ===== HEADER – بسيط للـ iframe ===== -->
+        <div class="header">
+            <div class="actions">
+                <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+                <button onclick="clearCacheAndReload()">🗑️</button>
+                <button onclick="loadGames()">🔄</button>
+            </div>
+        </div>
+
+        <!-- ===== شريط المعلومات ===== -->
+        <div class="info-bar">
+            <span class="update-time" id="updateTime">آخر تحديث: جاري التحميل...</span>
+            <button class="btn-refresh" onclick="loadGames()">🔄 تحديث</button>
+        </div>
+
+        <!-- ===== المحتوى ===== -->
+        <div id="content">
+            <div class="empty-state"><span class="icon">⏳</span> جاري تحميل المباريات...</div>
+        </div>
+
+        <!-- ===== MODAL: الاسم ===== -->
+        <div class="modal-overlay" id="nameModal">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeNameModal()">✕</button>
+                <div class="modal-title">👤 أدخل اسمك</div>
+                <div class="modal-subtitle">سيتم استخدام هذا الاسم لتسجيل توقعاتك</div>
+                <div class="modal-input">
+                    <input type="text" id="nameInput" placeholder="اكتب اسمك هنا..." maxlength="30">
+                </div>
+                <div id="nameStatus" class="user-status" style="display:none;"></div>
+                <button class="modal-submit" id="nameSubmitBtn">متابعة →</button>
+                <div id="nameError" style="color:var(--danger);margin-top:4px;font-weight:700;font-size:0.7rem;text-align:center;"></div>
+                <button style="margin-top:8px;font-size:0.6rem;color:var(--text-secondary);background:none;border:none;cursor:pointer;font-family:inherit;display:block;margin-left:auto;margin-right:auto;" onclick="closeNameModal()">إلغاء</button>
+            </div>
+        </div>
+
+        <!-- ===== MODAL: التوقع ===== -->
+        <div class="modal-overlay" id="predictionModal">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closePredictionModal()">✕</button>
+                <div class="modal-title">📝 توقع نتيجة المباراة</div>
+                <div class="modal-subtitle">👤 مرحباً <span id="greetingName"></span></div>
+                <div class="modal-teams" id="modalTeams">
+                    <span class="flag" id="modalFlag1">🏁</span>
+                    <span id="modalTeam1">الفريق الأول</span>
+                    <span class="vs">🆚</span>
+                    <span class="flag" id="modalFlag2">🏁</span>
+                    <span id="modalTeam2">الفريق الثاني</span>
+                </div>
+                <div style="font-size:0.65rem;color:var(--text-secondary);text-align:center;margin-bottom:10px;" id="modalDateTime">📅 التاريخ والوقت</div>
+
+                <div class="modal-options" id="modalOptions">
+                    <label>
+                        <input type="radio" name="prediction" value="HOME">
+                        <span class="opt-label">🏆 <span id="optTeam1">الفريق الأول</span></span>
+                        <span class="opt-sub">فوز</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="prediction" value="AWAY">
+                        <span class="opt-label">🏆 <span id="optTeam2">الفريق الثاني</span></span>
+                        <span class="opt-sub">فوز</span>
+                    </label>
+                </div>
+
+                <button class="modal-submit" id="modalSubmitBtn">💾 حفظ التوقع</button>
+                <div class="modal-message" id="modalMessage"></div>
+            </div>
+        </div>
+
+        <!-- ===== MODAL: إحصائيات ===== -->
+        <div class="modal-overlay" id="teamStatsModal">
+            <div class="modal-content" style="max-width:720px;">
+                <button class="modal-close" onclick="closeTeamStatsModal()">✕</button>
+                <div class="modal-title">📊 إحصائيات الفريقين</div>
+                <div id="teamStatsContent"><div class="empty-state"><span class="icon">⏳</span> جاري التحميل...</div></div>
+            </div>
+        </div>
+
+        <!-- ===== MODAL: عرض التوقعات ===== -->
+        <div class="modal-overlay" id="viewPredictionsModal">
+            <div class="modal-content" style="max-width:620px;">
+                <button class="modal-close" onclick="closeViewPredictionsModal()">✕</button>
+                <div class="modal-title">📋 توقعات المباراة</div>
+                <div class="modal-teams" id="viewTeams" style="font-size:0.9rem;">
+                    <span class="flag" id="viewFlag1">🏁</span>
+                    <span id="viewTeam1">الفريق الأول</span>
+                    <span class="vs">🆚</span>
+                    <span class="flag" id="viewFlag2">🏁</span>
+                    <span id="viewTeam2">الفريق الثاني</span>
+                </div>
+                <div style="font-size:0.65rem;color:var(--text-secondary);text-align:center;margin:4px 0;">
+                    عدد التوقعات: <span id="viewPredictionsCount" style="font-weight:800;color:var(--gold-light);">0</span>
+                </div>
+
+                <div class="prob-bar-container">
+                    <div class="prob-label">
+                        <span>🏆 <span id="probTeam1">الفريق الأول</span>: <span id="probHomePercent">0%</span></span>
+                        <span>🏆 <span id="probTeam2">الفريق الثاني</span>: <span id="probAwayPercent">0%</span></span>
+                    </div>
+                    <div class="prob-bar">
+                        <div class="segment home" id="probHomeBar" style="width:50%;">50%</div>
+                        <div class="segment away" id="probAwayBar" style="width:50%;">50%</div>
+                    </div>
+                </div>
+
+                <div class="predictions-list" id="viewPredictionsList">
+                    <div class="empty-state"><span class="icon">📭</span> لا توجد توقعات لهذه المباراة</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== MODAL: توقعات اللاعب ===== -->
+        <div class="modal-overlay" id="playerPredictionsModal">
+            <div class="modal-content" style="max-width:620px;">
+                <button class="modal-close" onclick="closePlayerPredictionsModal()">✕</button>
+                <div class="modal-title">📋 جميع توقعات <span id="playerModalName"></span></div>
+                <div style="display:flex;justify-content:center;gap:14px;margin:4px 0;font-size:0.75rem;flex-wrap:wrap;">
+                    <span>✅ صحيح: <span id="playerCorrectCount" style="color:var(--success);font-weight:800;">0</span></span>
+                    <span>❌ خاطئ: <span id="playerWrongCount" style="color:var(--danger);font-weight:800;">0</span></span>
+                    <span>📊 المجموع: <span id="playerTotalCount" style="color:var(--gold-light);font-weight:800;">0</span></span>
+                </div>
+                <div class="predictions-list" id="playerPredictionsList">
+                    <div class="empty-state"><span class="icon">📭</span> لا توجد توقعات لهذا اللاعب</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TOAST ===== -->
+        <div class="copy-toast" id="toast"></div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        //  CONFIGURATION
+        // ============================================================
+        const API = "https://worldcup26.ir/get/games";
+
+        const SUPABASE_URL = "https://szjxwhsmefqpfcebtvei.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_0um28lgPMHcjDOThT0UgDA_K-Y7Wmx3";
+
+        let supabaseClient = null;
+        try {
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            console.log("✅ Supabase client initialized");
+        } catch (e) {
+            console.warn("⚠️ Supabase init error:", e);
+        }
+
+        // ============================================================
+        //  STATE
+        // ============================================================
+        let allGames = [];
+        let previousGamesData = [];
+        let predictions = [];
+        let userPredictionsMap = {};
+        let currentUserName = '';
+        let currentMatch = null;
+        let nameModalMatch = null;
+
+        // ============================================================
+        //  THEME
+        // ============================================================
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme === 'light' ? 'light' : '');
+            localStorage.setItem('theme', newTheme);
+            document.getElementById('themeToggle').textContent = newTheme === 'light' ? '☀️' : '🌙';
+        }
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.getElementById('themeToggle').textContent = '☀️';
+        }
+
+        // ============================================================
+        //  CACHE
+        // ============================================================
+        function clearCache() {
+            localStorage.removeItem("games");
+            localStorage.removeItem("predictions");
+            localStorage.removeItem("wc_cache");
+            showToast('🗑️ تم مسح الكاش');
+        }
+
+        function clearCacheAndReload() {
+            clearCache();
+            setTimeout(() => location.reload(), 400);
+        }
+
+        function setCache(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify({ value, time: Date.now() }));
+            } catch (e) { /* ignore */ }
+        }
+
+        function getCache(key) {
+            try {
+                const raw = localStorage.getItem(key);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (Date.now() - parsed.time > 120000) {
+                    localStorage.removeItem(key);
+                    return null;
+                }
+                return parsed.value;
+            } catch { return null; }
+        }
+
+        // ============================================================
+        //  TRANSLATION HELPERS
+        // ============================================================
+        const nameMapping = {
+            "مکزیک": "المكسيك",
+            "Mexico": "المكسيك",
+            "مكسيك": "المكسيك",
+            "آفریقای جنوبی": "جنوب أفريقيا",
+            "South Africa": "جنوب أفريقيا",
+            "افریقای جنوبی": "جنوب أفريقيا",
+            "کره جنوبی": "كوريا الجنوبية",
+            "South Korea": "كوريا الجنوبية",
+            "جمهوری چک": "التشيك",
+            "Czech Republic": "التشيك",
+            "چک": "التشيك",
+            "کانادا": "كندا",
+            "Canada": "كندا",
+            "بوسنی و هرزگوین": "البوسنة والهرسك",
+            "Bosnia and Herzegovina": "البوسنة والهرسك",
+            "آمریکا": "أمريكا",
+            "United States": "أمريكا",
+            "امریکا": "أمريكا",
+            "پاراگوئه": "باراغواي",
+            "Paraguay": "باراغواي",
+            "هائیتی": "هايتي",
+            "Haiti": "هايتي",
+            "اسکاتلند": "إسكتلندا",
+            "Scotland": "إسكتلندا",
+            "برزیل": "البرازيل",
+            "Brazil": "البرازيل",
+            "برزیل": "البرازيل",
+            "مراکش": "المغرب",
+            "Morocco": "المغرب",
+            "مراكش": "المغرب",
+            "قطر": "قطر",
+            "Qatar": "قطر",
+            "سوئیس": "سويسرا",
+            "Switzerland": "سويسرا",
+            "سویس": "سويسرا",
+            "ساحل عاج": "ساحل العاج",
+            "Ivory Coast": "ساحل العاج",
+            "اکوادور": "الإكوادور",
+            "Ecuador": "الإكوادور",
+            "آلمان": "ألمانيا",
+            "Germany": "ألمانيا",
+            "کوراسائو": "كوراساو",
+            "Curaçao": "كوراساو",
+            "کوراساو": "كوراساو",
+            "هلند": "هولندا",
+            "Netherlands": "هولندا",
+            "ژاپن": "اليابان",
+            "Japan": "اليابان",
+            "سوئد": "السويد",
+            "Sweden": "السويد",
+            "تونس": "تونس",
+            "Tunisia": "تونس",
+            "ایران": "إيران",
+            "Iran": "إيران",
+            "نیوزیلند": "نيوزيلندا",
+            "New Zealand": "نيوزيلندا",
+            "اسپانیا": "إسبانيا",
+            "Spain": "إسبانيا",
+            "کیپ ورد": "الرأس الأخضر",
+            "Cape Verde": "الرأس الأخضر",
+            "بلژیک": "بلجيكا",
+            "Belgium": "بلجيكا",
+            "مصر": "مصر",
+            "Egypt": "مصر",
+            "عربستان": "السعودية",
+            "عربستان سعودی": "السعودية",
+            "سعودی": "السعودية",
+            "Saudi Arabia": "السعودية",
+            "اروگوئه": "أوروغواي",
+            "Uruguay": "أوروغواي",
+            "فرانسه": "فرنسا",
+            "France": "فرنسا",
+            "سنگال": "السنغال",
+            "Senegal": "السنغال",
+            "عراق": "العراق",
+            "Iraq": "العراق",
+            "نروژ": "النرويج",
+            "Norway": "النرويج",
+            "آرژانتین": "الأرجنتين",
+            "Argentina": "الأرجنتين",
+            "ارژانتین": "الأرجنتين",
+            "الجزایر": "الجزائر",
+            "Algeria": "الجزائر",
+            "اتریش": "النمسا",
+            "Austria": "النمسا",
+            "اتریش": "النمسا",
+            "اردن": "الأردن",
+            "Jordan": "الأردن",
+            "پرتغال": "البرتغال",
+            "پرتقال": "البرتغال",
+            "Portugal": "البرتغال",
+            "جمهوری دموکراتیک کنگو": "جمهورية الكونغو الديمقراطية",
+            "کنگو دمکراتیک": "جمهورية الكونغو الديمقراطية",
+            "کنگو دموکراتیک": "جمهورية الكونغو الديمقراطية",
+            "جمهوری کنگو": "جمهورية الكونغو الديمقراطية",
+            "Democratic Republic of the Congo": "جمهورية الكونغو الديمقراطية",
+            "DR Congo": "جمهورية الكونغو الديمقراطية",
+            "Congo DR": "جمهورية الكونغو الديمقراطية",
+            "Congo (DR)": "جمهورية الكونغو الديمقراطية",
+            "Congo": "جمهورية الكونغو الديمقراطية",
+            "الكونغو": "جمهورية الكونغو الديمقراطية",
+            "انگلستان": "إنجلترا",
+            "England": "إنجلترا",
+            "کرواسی": "كرواتيا",
+            "Croatia": "كرواتيا",
+            "ازبکستان": "أوزبكستان",
+            "Uzbekistan": "أوزبكستان",
+            "کلمبیا": "كولومبيا",
+            "Colombia": "كولومبيا",
+            "غنا": "غانا",
+            "Ghana": "غانا",
+            "پاناما": "بنما",
+            "Panama": "بنما",
+            "استرالیا": "أستراليا",
+            "Australia": "أستراليا",
+            "ترکیه": "تركيا",
+            "Turkey": "تركيا"
+        };
+
+        function translateToArabic(raw) {
+            if (!raw) return "";
+            let trimmed = raw.trim();
+            if (nameMapping[trimmed]) return nameMapping[trimmed];
+            let lower = trimmed.toLowerCase();
+            for (let [key, value] of Object.entries(nameMapping)) {
+                if (key.toLowerCase() === lower) return value;
+            }
+            if (trimmed.includes("کنگو") || trimmed.includes("الكونغو") || trimmed.toLowerCase().includes("congo")) {
+                return "جمهورية الكونغو الديمقراطية";
+            }
+            return trimmed;
+        }
+
+        function getFlag(name) {
+            const map = {
+                "المكسيك": "🇲🇽",
+                "جنوب أفريقيا": "🇿🇦",
+                "الأرجنتين": "🇦🇷",
+                "الجزائر": "🇩🇿",
+                "النمسا": "🇦🇹",
+                "الأردن": "🇯🇴",
+                "البرتغال": "🇵🇹",
+                "جمهورية الكونغو الديمقراطية": "🇨🇩",
+                "كوريا الجنوبية": "🇰🇷",
+                "التشيك": "🇨🇿",
+                "كندا": "🇨🇦",
+                "البوسنة والهرسك": "🇧🇦",
+                "أمريكا": "🇺🇸",
+                "العراق": "🇮🇶",
+                "سويسرا": "🇨🇭",
+                "قطر": "🇶🇦",
+                "البرازيل": "🇧🇷",
+                "المغرب": "🇲🇦",
+                "هايتي": "🇭🇹",
+                "إسكتلندا": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+                "أستراليا": "🇦🇺",
+                "تركيا": "🇹🇷",
+                "ألمانيا": "🇩🇪",
+                "كوراساو": "🇨🇼",
+                "اليابان": "🇯🇵",
+                "هولندا": "🇳🇱",
+                "الإكوادور": "🇪🇨",
+                "ساحل العاج": "🇨🇮",
+                "السويد": "🇸🇪",
+                "تونس": "🇹🇳",
+                "إسبانيا": "🇪🇸",
+                "الرأس الأخضر": "🇨🇻",
+                "مصر": "🇪🇬",
+                "بلجيكا": "🇧🇪",
+                "السعودية": "🇸🇦",
+                "أوروغواي": "🇺🇾",
+                "إيران": "🇮🇷",
+                "نيوزيلندا": "🇳🇿",
+                "السنغال": "🇸🇳",
+                "فرنسا": "🇫🇷",
+                "النرويج": "🇳🇴",
+                "إنجلترا": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+                "كرواتيا": "🇭🇷",
+                "بنما": "🇵🇦",
+                "كولومبيا": "🇨🇴",
+                "أوزبكستان": "🇺🇿",
+                "غانا": "🇬🇭",
+                "باراغواي": "🇵🇾"
+            };
+            return map[name] || "🏁";
+        }
+
+        function isRestrictedTeam(teamName) {
+            if (!teamName) return false;
+            const patterns = [
+                /winner\s+match\s*\d*/i,
+                /loser\s+match\s*\d*/i,
+                /winner\s+of\s+match/i,
+                /loser\s+of\s+match/i,
+                /winners?\s+match/i,
+                /losers?\s+match/i,
+                /الفائز\s*من\s*مباراة/i,
+                /الخاسر\s*من\s*مباراة/i,
+                /فائز\s*مباراة/i,
+                /خاسر\s*مباراة/i,
+                /الفائز\s*مباراة/i,
+                /الخاسر\s*مباراة/i,
+                /match\s+\d+\s*winner/i,
+                /match\s+\d+\s*loser/i,
+            ];
+            for (let pattern of patterns) {
+                if (pattern.test(teamName)) return true;
+            }
+            return false;
+        }
+
+        function isMatchRestricted(team1, team2) {
+            return isRestrictedTeam(team1) || isRestrictedTeam(team2);
+        }
+
+        function getDisplayName(teamName) {
+            if (!teamName) return teamName;
+            const winnerMatch = teamName.match(/Winner match (\d+)/i);
+            if (winnerMatch) return `🏆 الفائز من مباراة ${winnerMatch[1]}`;
+            const loserMatch = teamName.match(/Loser match (\d+)/i);
+            if (loserMatch) return `❌ الخاسر من مباراة ${loserMatch[1]}`;
+            if (teamName.toLowerCase().includes('winner match')) {
+                const num = teamName.match(/\d+/);
+                return num ? `🏆 الفائز من مباراة ${num[0]}` : '🏆 الفائز';
+            }
+            if (teamName.toLowerCase().includes('loser match')) {
+                const num = teamName.match(/\d+/);
+                return num ? `❌ الخاسر من مباراة ${num[0]}` : '❌ الخاسر';
+            }
+            return teamName;
+        }
+
+        // ============================================================
+        //  GET MATCH STATUS
+        // ============================================================
+        function getMatchStatus(match) {
+            if (match.finished === "TRUE" || match.finished === true) {
+                return { status: 'finished', text: '✅ انتهت', class: 'finished' };
+            }
+            if (match.status === "finished" || match.status === "Final") {
+                return { status: 'finished', text: '✅ انتهت', class: 'finished' };
+            }
+            const elapsed = match.time_elapsed || '';
+            if (elapsed && elapsed !== "-" && elapsed !== "" && !isNaN(parseInt(elapsed))) {
+                if (parseInt(elapsed) >= 90 || elapsed.includes('+')) {
+                    return { status: 'finished', text: '✅ انتهت', class: 'finished' };
+                }
+                return { status: 'live', text: '🟢 جارية', class: 'live' };
+            }
+            if (match.winner_team_id && match.winner_team_id !== null && match.winner_team_id !== "") {
+                return { status: 'finished', text: '✅ انتهت', class: 'finished' };
+            }
+            return { status: 'not-started', text: '⏳ لم تبدأ', class: 'not-started' };
+        }
+
+        // ============================================================
+        //  GET DAY NAME
+        // ============================================================
+        function getDayName(dateString) {
+            if (!dateString || dateString === "-" || dateString === "تاريخ غير معروف") return "";
+            try {
+                // محاولة تحويل التاريخ
+                let date = new Date(dateString);
+                if (isNaN(date.getTime())) {
+                    // محاولة استخراج التاريخ من صيغة مختلفة
+                    const parts = dateString.match(/(\d{4})-(\d{2})-(\d{2})/);
+                    if (parts) {
+                        date = new Date(parseInt(parts[1]), parseInt(parts[2]) - 1, parseInt(parts[3]));
+                    } else {
+                        // محاولة استخراج من صيغة "2026-07-15 22:00"
+                        const parts2 = dateString.match(/(\d{4})-(\d{2})-(\d{2})/);
+                        if (parts2) {
+                            date = new Date(parseInt(parts2[1]), parseInt(parts2[2]) - 1, parseInt(parts2[3]));
+                        } else {
+                            return "";
+                        }
+                    }
+                }
+                if (isNaN(date.getTime())) return "";
+                const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+                return days[date.getDay()];
+            } catch {
+                return "";
+            }
+        }
+
+        // ============================================================
+        //  FIND MATCH RESULT
+        // ============================================================
+        function findMatchResult(team1, team2) {
+            let match = previousGamesData.find(m =>
+                (m.homeAr === team1 && m.awayAr === team2) ||
+                (m.homeAr === team2 && m.awayAr === team1)
+            );
+            if (match) return match;
+
+            if (allGames && allGames.length) {
+                let g = allGames.find(m => {
+                    const home = translateToArabic(m.home_team_name_fa || m.home_team_name_en || '');
+                    const away = translateToArabic(m.away_team_name_fa || m.away_team_name_en || '');
+                    return (home === team1 && away === team2) || (home === team2 && away === team1);
+                });
+                if (g && g.finished === "TRUE") {
+                    return {
+                        homeAr: translateToArabic(g.home_team_name_fa || g.home_team_name_en || ''),
+                        awayAr: translateToArabic(g.away_team_name_fa || g.away_team_name_en || ''),
+                        homeScore: parseInt(g.home_score, 10),
+                        awayScore: parseInt(g.away_score, 10),
+                        homePenalty: g.home_penalty_score ? parseInt(g.home_penalty_score) : null,
+                        awayPenalty: g.away_penalty_score ? parseInt(g.away_penalty_score) : null,
+                        hadPenalties: g.home_penalty_score && g.away_penalty_score
+                    };
+                }
+            }
+            return null;
+        }
+
+        function determineWinner(result) {
+            if (!result) return null;
+            if (result.hadPenalties && result.homePenalty !== null && result.awayPenalty !== null) {
+                if (parseInt(result.homePenalty) > parseInt(result.awayPenalty)) return result.homeAr;
+                else if (parseInt(result.awayPenalty) > parseInt(result.homePenalty)) return result.awayAr;
+                return null;
+            }
+            if (result.homeScore > result.awayScore) return result.homeAr;
+            else if (result.awayScore > result.homeScore) return result.awayAr;
+            return null;
+        }
+
+        // ============================================================
+        //  TEAM STATS
+        // ============================================================
+        function getTeamStats(teamName) {
+            const games = previousGamesData || [];
+            let wins = 0,
+                losses = 0,
+                draws = 0,
+                goalsFor = 0,
+                goalsAgainst = 0;
+            const results = [];
+
+            for (let game of games) {
+                let isHome = game.homeAr === teamName;
+                let isAway = game.awayAr === teamName;
+                if (!isHome && !isAway) continue;
+
+                const homeScore = game.homeScore || 0;
+                const awayScore = game.awayScore || 0;
+                const result = { homeScore, awayScore, homeAr: game.homeAr, awayAr: game.awayAr,
+                    homePenalty: game.homePenalty, awayPenalty: game.awayPenalty,
+                    hadPenalties: game.hadPenalties };
+                const winner = determineWinner(result);
+
+                if (isHome) {
+                    goalsFor += homeScore;
+                    goalsAgainst += awayScore;
+                    if (winner === teamName) { wins++;
+                        results.push('W'); } else if (winner === game.awayAr) { losses++;
+                        results.push('L'); } else { draws++;
+                        results.push('D'); }
+                } else {
+                    goalsFor += awayScore;
+                    goalsAgainst += homeScore;
+                    if (winner === teamName) { wins++;
+                        results.push('W'); } else if (winner === game.homeAr) { losses++;
+                        results.push('L'); } else { draws++;
+                        results.push('D'); }
+                }
+            }
+
+            const total = wins + losses + draws;
+            const winRate = total > 0 ? (wins / total) * 100 : 0;
+
+            return { wins, losses, draws, total, winRate, goalsFor, goalsAgainst, results };
+        }
+
+        function getTeamScorers(teamName) {
+            const scorers = {};
+            if (allGames) {
+                for (let match of allGames) {
+                    const homeTeam = translateToArabic(match.home_team_name_fa || match.home_team_name_en || '');
+                    const awayTeam = translateToArabic(match.away_team_name_fa || match.away_team_name_en || '');
+                    if (homeTeam !== teamName && awayTeam !== teamName) continue;
+                    if (match.scorers) {
+                        for (let g of match.scorers) {
+                            if (!g.name) continue;
+                            if (!scorers[g.name]) scorers[g.name] = 0;
+                            scorers[g.name]++;
+                        }
+                    }
+                }
+            }
+            return Object.entries(scorers)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5)
+                .map(([name, goals]) => ({ name, goals }));
+        }
+
+        // ============================================================
+        //  SUPABASE FUNCTIONS
+        // ============================================================
+        async function getAllPredictions() {
+            if (!supabaseClient) { predictions = []; return; }
+            try {
+                const { data, error } = await supabaseClient
+                    .from("predictions")
+                    .select("*")
+                    .limit(500);
+                if (error) throw error;
+                predictions = data || [];
+                console.log("✅ Predictions loaded:", predictions.length);
+            } catch (e) {
+                console.warn("⚠️ Failed to load predictions:", e);
+                predictions = [];
+            }
+        }
+
+        async function loadUserPredictions(userName) {
+            if (!supabaseClient || !userName) return;
+            try {
+                const { data, error } = await supabaseClient
+                    .from("predictions")
+                    .select("match_id")
+                    .eq("user_name", userName);
+                if (error) throw error;
+                userPredictionsMap = {};
+                if (data && data.length) {
+                    data.forEach(p => { userPredictionsMap[p.match_id] = true; });
+                }
+            } catch (e) {
+                console.error("❌ جلب توقعات المستخدم:", e);
+                userPredictionsMap = {};
+            }
+        }
+
+        async function getUserPrediction(userName, matchId) {
+            if (!supabaseClient || !userName || !matchId) return null;
+            try {
+                const { data, error } = await supabaseClient
+                    .from("predictions")
+                    .select("*")
+                    .eq("user_name", userName)
+                    .eq("match_id", matchId)
+                    .order("created_at", { ascending: false })
+                    .limit(1);
+                if (error) throw error;
+                return data && data.length > 0 ? data[0] : null;
+            } catch (e) { return null; }
+        }
+
+        async function savePrediction(userName, matchId, prediction) {
+            if (!supabaseClient) return { success: false, message: "Supabase غير متصل" };
+
+            const existing = await getUserPrediction(userName, matchId);
+
+            if (existing) {
+                try {
+                    const { error } = await supabaseClient
+                        .from("predictions")
+                        .update({ prediction: prediction, updated_at: new Date().toISOString() })
+                        .eq("id", existing.id);
+                    if (error) throw error;
+                    await getAllPredictions();
+                    return { success: true, updated: true };
+                } catch (e) { return { success: false, message: e.message }; }
+            } else {
+                try {
+                    const { error } = await supabaseClient
+                        .from("predictions")
+                        .insert([{ user_name: userName, match_id: matchId, prediction: prediction }]);
+                    if (error) throw error;
+                    await getAllPredictions();
+                    return { success: true, updated: false };
+                } catch (e) { return { success: false, message: e.message }; }
+            }
+        }
+
+        async function getPredictionsForMatch(matchId) {
+            if (!supabaseClient || !matchId) return [];
+            try {
+                const { data, error } = await supabaseClient
+                    .from("predictions")
+                    .select("*")
+                    .eq("match_id", matchId)
+                    .order("created_at", { ascending: true });
+                if (error) throw error;
+                return data || [];
+            } catch (e) { return []; }
+        }
+
+        async function getPredictionsForUser(userName) {
+            if (!supabaseClient || !userName) return [];
+            try {
+                const { data, error } = await supabaseClient
+                    .from("predictions")
+                    .select("*")
+                    .eq("user_name", userName)
+                    .order("created_at", { ascending: true });
+                if (error) throw error;
+                return data || [];
+            } catch (e) { return []; }
+        }
+
+        function getPredictionStatus(prediction) {
+            if (!prediction || !prediction.match_id) {
+                return { status: 'pending', text: '⏳ غير معروفة' };
+            }
+            const parts = prediction.match_id.split('_');
+            if (parts.length < 3) {
+                return { status: 'pending', text: '⏳ غير مكتملة' };
+            }
+            const team1 = parts[1];
+            const team2 = parts[2];
+            const result = findMatchResult(team1, team2);
+            if (!result) {
+                return { status: 'pending', text: '⏳ لم تلعب بعد' };
+            }
+            const correctResult = determineWinner(result);
+            if (!correctResult) {
+                if (prediction.prediction === 'DRAW') {
+                    return { status: 'correct', text: '✅ صحيح (تعادل)' };
+                } else {
+                    return { status: 'wrong', text: '❌ خاطئ (تعادل)' };
+                }
+            }
+            if (prediction.prediction === correctResult) {
+                return { status: 'correct', text: `✅ صحيح (${correctResult})` };
+            } else {
+                return { status: 'wrong', text: `❌ خاطئ (الفائز: ${correctResult})` };
+            }
+        }
+
+        // ============================================================
+        //  TOAST
+        // ============================================================
+        function showToast(msg, isError = false) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'copy-toast show' + (isError ? ' error' : '');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
+
+        // ============================================================
+        //  LOAD GAMES
+        // ============================================================
+        async function loadGames() {
+            try {
+                document.getElementById("content").innerHTML =
+                    `<div class="empty-state"><span class="icon">⏳</span> جاري تحديث البيانات...</div>`;
+
+                const response = await fetch(API + "?time=" + Date.now());
+                const data = await response.json();
+                const games = Array.isArray(data) ? data : data.games;
+
+                if (!games || games.length === 0) {
+                    throw "لا توجد بيانات مباريات";
+                }
+
+                allGames = games;
+                const finished = allGames.filter(g => g.finished === "TRUE");
+                previousGamesData = finished.map(game => {
+                    const homeAr = translateToArabic(game.home_team_name_fa || game.home_team_name_en || '');
+                    const awayAr = translateToArabic(game.away_team_name_fa || game.away_team_name_en || '');
+                    const homeScore = parseInt(game.home_score, 10);
+                    const awayScore = parseInt(game.away_score, 10);
+                    let homePenalty = null,
+                        awayPenalty = null,
+                        hadPenalties = false;
+                    if (game.home_penalty_score && game.away_penalty_score) {
+                        homePenalty = parseInt(game.home_penalty_score);
+                        awayPenalty = parseInt(game.away_penalty_score);
+                        hadPenalties = true;
+                    }
+                    return { homeAr, awayAr, homeScore, awayScore, homePenalty, awayPenalty, hadPenalties };
+                });
+
+                await getAllPredictions();
+                const savedName = localStorage.getItem('lastUserName') || '';
+                if (savedName) {
+                    currentUserName = savedName;
+                    await loadUserPredictions(savedName);
+                }
+
+                renderGames(games);
+                document.getElementById("updateTime").textContent =
+                    "آخر تحديث: " + new Date().toLocaleTimeString("ar-SA");
+
+            } catch (error) {
+                console.error("⚠️ فشل تحميل المباريات من API:", error);
+                renderFallbackMatches();
+            }
+        }
+
+        // ============================================================
+        //  RENDER GAMES – بطاقات كبيرة وإبداعية مع اسم اليوم
+        // ============================================================
+        function renderGames(games) {
+            const rounds = {
+                "ربع النهائي": m => {
+                    const type = (m.type || m.stage || "").toLowerCase();
+                    return type.includes("qf") || type.includes("quarter") || type.includes("ربع");
+                },
+                "نصف النهائي": m => {
+                    const type = (m.type || m.stage || "").toLowerCase();
+                    return type.includes("sf") || type.includes("semi") || type.includes("نصف");
+                },
+                "المركز الثالث": m => {
+                    const type = (m.type || m.stage || "").toLowerCase();
+                    return type.includes("3rd") || type.includes("third") || type.includes("ثالث");
+                },
+                "النهائي": m => {
+                    const type = (m.type || m.stage || "").toLowerCase();
+                    return type.includes("final") || type.includes("نهائي") || type.includes("championship");
+                }
+            };
+
+            let html = "";
+
+            for (let round in rounds) {
+                let matches = games.filter(rounds[round]);
+
+                if (matches.length === 0) {
+                    html += `
+                        <div class="round-section">
+                            <div class="round-title">
+                                <span class="trophy-icon">🏆</span>
+                                ${round}
+                                <span class="badge-count">0</span>
+                            </div>
+                            <div class="empty-state"><span class="icon">📭</span> لم يتم تحديد المباريات بعد</div>
+                        </div>
+                    `;
+                    continue;
+                }
+
+                html += `
+                    <div class="round-section">
+                        <div class="round-title">
+                            <span class="trophy-icon">🏆</span>
+                            ${round}
+                            <span class="badge-count">${matches.length}</span>
+                        </div>
+                        <div class="match-grid">
+                `;
+
+                matches.forEach(match => {
+                    let homeRaw = match.home_team_name_fa ||
+                        match.home_team_name_en ||
+                        match.home_team_label ||
+                        "-";
+                    let awayRaw = match.away_team_name_fa ||
+                        match.away_team_name_en ||
+                        match.away_team_label ||
+                        "-";
+
+                    let home = translateToArabic(homeRaw);
+                    let away = translateToArabic(awayRaw);
+                    let homeDisplay = getDisplayName(home);
+                    let awayDisplay = getDisplayName(away);
+                    let homeFlag = getFlag(home);
+                    let awayFlag = getFlag(away);
+
+                    const restricted = isMatchRestricted(home, away);
+                    const matchStatus = getMatchStatus(match);
+                    const isFinished = matchStatus.status === 'finished';
+                    const isLive = matchStatus.status === 'live';
+                    const isNotStarted = matchStatus.status === 'not-started';
+
+                    let matchId = match.match_id || match.id || `${home}_${away}`;
+
+                    const userHasPrediction = userPredictionsMap && userPredictionsMap[matchId] === true;
+
+                    let winProb1 = 50,
+                        winProb2 = 50;
+                    let showAI = !isFinished && !restricted;
+
+                    if (showAI) {
+                        const stats1 = getTeamStats(home);
+                        const stats2 = getTeamStats(away);
+                        if (stats1.total > 0 && stats2.total > 0) {
+                            const strength1 = (stats1.goalsFor / (stats1.total || 1)) * 1.5 + (1 / ((stats1.goalsAgainst / (
+                                stats1.total || 1)) + 0.5));
+                            const strength2 = (stats2.goalsFor / (stats2.total || 1)) * 1.5 + (1 / ((stats2.goalsAgainst / (
+                                stats2.total || 1)) + 0.5));
+                            const total = strength1 + strength2;
+                            winProb1 = total > 0 ? (strength1 / total) * 100 : 50;
+                            winProb2 = 100 - winProb1;
+                        } else if (stats1.total > 0) {
+                            winProb1 = Math.min(100, Math.max(0, stats1.winRate));
+                            winProb2 = 100 - winProb1;
+                        } else if (stats2.total > 0) {
+                            winProb2 = Math.min(100, Math.max(0, stats2.winRate));
+                            winProb1 = 100 - winProb2;
+                        }
+                    }
+
+                    let predictBtnHtml = '🔮 توقع الآن';
+                    let predictDisabled = false;
+                    let predictClass = 'btn-predict';
+
+                    if (restricted) {
+                        predictDisabled = true;
+                        predictBtnHtml = '⏳ قيد الانتظار';
+                        predictClass += ' saved';
+                    } else if (isFinished) {
+                        predictDisabled = true;
+                        predictBtnHtml = '✅ منتهية';
+                        predictClass += ' saved';
+                    } else if (isLive) {
+                        predictDisabled = true;
+                        predictBtnHtml = '🔴 جارية';
+                    } else if (userHasPrediction) {
+                        predictDisabled = true;
+                        predictBtnHtml = '✅ تم التوقع';
+                        predictClass += ' saved';
+                    }
+
+                    let matchTime = match.local_date || "-";
+                    if (matchTime !== "-") {
+                        const timeMatch = matchTime.match(/(\d{2}):(\d{2})/);
+                        if (timeMatch) {
+                            const hour = parseInt(timeMatch[1]);
+                            const min = timeMatch[2];
+                            if (round === "ربع النهائي") {
+                                if (home === "فرنسا" && away === "المغرب") {
+                                    matchTime = matchTime.replace(/\d{2}:\d{2}/, "23:00");
+                                } else if (home === "إسبانيا" && away === "بلجيكا") {
+                                    matchTime = matchTime.replace(/\d{2}:\d{2}/, "22:00");
+                                } else if (home === "النرويج" && away === "إنجلترا") {
+                                    matchTime = matchTime.replace(/\d{2}:\d{2}/, "00:00");
+                                } else if (home === "الأرجنتين" && away.includes("Winner match 96")) {
+                                    matchTime = matchTime.replace(/\d{2}:\d{2}/, "04:00");
+                                }
+                            } else if (round === "نصف النهائي") {
+                                matchTime = matchTime.replace(/\d{2}:\d{2}/, "22:00");
+                            } else if (round === "المركز الثالث") {
+                                matchTime = matchTime.replace(/\d{2}:\d{2}/, "00:00");
+                            } else if (round === "النهائي") {
+                                matchTime = matchTime.replace(/\d{2}:\d{2}/, "22:00");
+                            }
+                        }
+                    }
+
+                    const statusClass = matchStatus.class;
+                    const restrictedClass = restricted ? 'restricted' : '';
+
+                    // عرض النتيجة
+                    let scoreDisplay;
+                    if (isFinished || isLive) {
+                        scoreDisplay = `<span class="score-number finished">${match.home_score ?? "?"} - ${match.away_score ?? "?"}</span>`;
+                        if (match.home_penalty_score && match.away_penalty_score) {
+                            scoreDisplay += `<span class="penalty">⚽ ترجيح: ${match.home_penalty_score} - ${match.away_penalty_score}</span>`;
+                        }
+                    } else {
+                        scoreDisplay = `<span class="score-number vs">VS</span>`;
+                    }
+
+                    // الحصول على اسم اليوم
+                    const dayName = getDayName(matchTime);
+                    const dayDisplay = dayName ? `<span class="day-name">${dayName}</span>` : '';
+
+                    // بناء البطاقة
+                    html += `
+                        <div class="match-card ${restrictedClass}">
+                            <!-- صف الفرق والنتيجة -->
+                            <div class="match-row">
+                                <div class="match-team team-home">
+                                    <span class="flag">${homeFlag}</span>
+                                    <span class="name ${restricted ? 'restricted-name' : ''}">${homeDisplay}</span>
+                                </div>
+                                <div class="match-score">${scoreDisplay}</div>
+                                <div class="match-team team-away">
+                                    <span class="name ${restricted ? 'restricted-name' : ''}">${awayDisplay}</span>
+                                    <span class="flag">${awayFlag}</span>
+                                </div>
+                            </div>
+
+                            <!-- صف التفاصيل مع اسم اليوم -->
+                            <div class="match-meta-row">
+                                <span class="meta-item"><span class="icon">📅</span> ${matchTime} ${dayDisplay ? '— ' + dayDisplay : ''}</span>
+                                <span class="status-badge ${statusClass}">${matchStatus.text}</span>
+                            </div>
+
+                            ${!isFinished && !restricted ? `
+                            <!-- تحليل الذكاء الاصطناعي -->
+                            <div class="ai-analysis">
+                                <span class="ai-label">🤖 تحليل الذكاء الاصطناعي</span>
+                                <div class="ai-bars">
+                                    <span class="ai-percent home">${Math.round(winProb1)}%</span>
+                                    <div class="bar-track">
+                                        <span class="bar home" style="width:${Math.round(winProb1)}%;"></span>
+                                        <span class="bar away" style="width:${Math.round(winProb2)}%;"></span>
+                                    </div>
+                                    <span class="ai-percent away">${Math.round(winProb2)}%</span>
+                                </div>
+                                <span class="ai-note">بناءً على الإحصائيات</span>
+                            </div>
+                            ` : ''}
+
+                            ${restricted && !isFinished ? `
+                            <div class="restricted-message">
+                                ⏳ هذه المباراة تعتمد على نتيجة مباراة سابقة. ستتوفر التوقعات والإحصائيات بعد تحديد الفريقين المتأهلين.
+                            </div>
+                            ` : ''}
+
+                            <!-- أزرار الإجراءات -->
+                            <div class="match-actions">
+                                ${!restricted ? `<button class="${predictClass}" onclick="openNameModal('${matchId}','${home}','${away}','${matchTime}')" ${predictDisabled ? 'disabled' : ''}>
+                                    <span class="btn-icon">🔮</span> ${predictBtnHtml}
+                                </button>` : `<button class="btn-predict saved" disabled>⏳ قيد الانتظار</button>`}
+                                ${!restricted ? `<button class="btn-stats" onclick="openTeamStatsModal('${home}','${away}')">📊 إحصائيات</button>` : ''}
+                                <button class="btn-view-predictions" onclick="openViewPredictionsModal('${matchId}','${home}','${away}')">📋 توقعات</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById("content").innerHTML = html;
+        }
+
+        // ============================================================
+        //  RENDER FALLBACK MATCHES
+        // ============================================================
+        function renderFallbackMatches() {
+            const fallbackMatches = [
+                { home: "البرازيل", away: "الأرجنتين", homeScore: "-", awayScore: "-", date: "2026-07-15 22:00", round: "ربع النهائي", finished: false, time_elapsed: "-" },
+                { home: "فرنسا", away: "المغرب", homeScore: 3, awayScore: 0, date: "2026-07-09 23:00", round: "ربع النهائي", finished: true, time_elapsed: "90" },
+                { home: "إنجلترا", away: "هولندا", homeScore: 1, awayScore: 1, homePenalty: 5, awayPenalty: 4, date: "2026-07-10 01:00", round: "ربع النهائي", finished: true, time_elapsed: "90" },
+                { home: "البرتغال", away: "إسبانيا", homeScore: 0, awayScore: 2, date: "2026-07-10 04:00", round: "ربع النهائي", finished: true, time_elapsed: "90" },
+                { home: "البرازيل", away: "فرنسا", homeScore: 2, awayScore: 3, date: "2026-07-13 22:00", round: "نصف النهائي", finished: true, time_elapsed: "90" },
+                { home: "Winner match 98", away: "Winner match 97", homeScore: "-", awayScore: "-", date: "2026-07-16 22:00", round: "نصف النهائي", finished: false, time_elapsed: "-" },
+                { home: "Loser match 101", away: "Loser match 102", homeScore: "-", awayScore: "-", date: "2026-07-20 00:00", round: "المركز الثالث", finished: false, time_elapsed: "-" },
+                { home: "Winner match 102", away: "Winner match 101", homeScore: "-", awayScore: "-", date: "2026-07-21 22:00", round: "النهائي", finished: false, time_elapsed: "-" }
+            ];
+
+            const rounds = {
+                "ربع النهائي": 4,
+                "نصف النهائي": 2,
+                "المركز الثالث": 1,
+                "النهائي": 1
+            };
+
+            let html = "";
+            let matchIndex = 0;
+
+            for (let [round, count] of Object.entries(rounds)) {
+                const roundMatches = fallbackMatches.slice(matchIndex, matchIndex + count);
+                matchIndex += count;
+
+                html += `
+                    <div class="round-section">
+                        <div class="round-title">
+                            <span class="trophy-icon">🏆</span>
+                            ${round}
+                            <span class="badge-count">${roundMatches.length}</span>
+                        </div>
+                        <div class="match-grid">
+                `;
+
+                roundMatches.forEach(m => {
+                    let homeDisplay = getDisplayName(m.home);
+                    let awayDisplay = getDisplayName(m.away);
+                    let homeFlag = getFlag(m.home);
+                    let awayFlag = getFlag(m.away);
+
+                    const restricted = isMatchRestricted(m.home, m.away);
+
+                    const matchObj = {
+                        finished: m.finished,
+                        time_elapsed: m.time_elapsed,
+                        status: m.finished ? "finished" : "not-started"
+                    };
+                    const matchStatus = getMatchStatus(matchObj);
+                    const isFinished = matchStatus.status === 'finished';
+                    const isNotStarted = matchStatus.status === 'not-started';
+
+                    let statusClass = matchStatus.class;
+
+                    let scoreDisplay;
+                    if (isFinished) {
+                        scoreDisplay = `<span class="score-number finished">${m.homeScore} - ${m.awayScore}</span>`;
+                        if (m.homePenalty !== undefined && m.awayPenalty !== undefined) {
+                            scoreDisplay += `<span class="penalty">⚽ ترجيح: ${m.homePenalty} - ${m.awayPenalty}</span>`;
+                        }
+                    } else {
+                        scoreDisplay = `<span class="score-number vs">VS</span>`;
+                    }
+
+                    let matchId = `${m.home}_${m.away}`;
+
+                    const userHasPrediction = userPredictionsMap && userPredictionsMap[matchId] === true;
+
+                    let predictBtnHtml = '🔮 توقع الآن';
+                    let predictDisabled = false;
+                    let predictClass = 'btn-predict';
+
+                    if (restricted) {
+                        predictDisabled = true;
+                        predictBtnHtml = '⏳ قيد الانتظار';
+                        predictClass += ' saved';
+                    } else if (isFinished) {
+                        predictDisabled = true;
+                        predictBtnHtml = '✅ منتهية';
+                        predictClass += ' saved';
+                    } else if (userHasPrediction) {
+                        predictDisabled = true;
+                        predictBtnHtml = '✅ تم التوقع';
+                        predictClass += ' saved';
+                    }
+
+                    let winProb1 = 50,
+                        winProb2 = 50;
+                    let showAI = !isFinished && !restricted;
+                    if (showAI) {
+                        const stats1 = getTeamStats(m.home);
+                        const stats2 = getTeamStats(m.away);
+                        if (stats1.total > 0 && stats2.total > 0) {
+                            const strength1 = (stats1.goalsFor / (stats1.total || 1)) * 1.5 + (1 / ((stats1.goalsAgainst / (
+                                stats1.total || 1)) + 0.5));
+                            const strength2 = (stats2.goalsFor / (stats2.total || 1)) * 1.5 + (1 / ((stats2.goalsAgainst / (
+                                stats2.total || 1)) + 0.5));
+                            const total = strength1 + strength2;
+                            winProb1 = total > 0 ? (strength1 / total) * 100 : 50;
+                            winProb2 = 100 - winProb1;
+                        } else if (stats1.total > 0) {
+                            winProb1 = Math.min(100, Math.max(0, stats1.winRate));
+                            winProb2 = 100 - winProb1;
+                        } else if (stats2.total > 0) {
+                            winProb2 = Math.min(100, Math.max(0, stats2.winRate));
+                            winProb1 = 100 - winProb2;
+                        }
+                    }
+
+                    const restrictedClass = restricted ? 'restricted' : '';
+                    const dayName = getDayName(m.date);
+                    const dayDisplay = dayName ? `<span class="day-name">${dayName}</span>` : '';
+
+                    html += `
+                        <div class="match-card ${restrictedClass}">
+                            <div class="match-row">
+                                <div class="match-team team-home">
+                                    <span class="flag">${homeFlag}</span>
+                                    <span class="name ${restricted ? 'restricted-name' : ''}">${homeDisplay}</span>
+                                </div>
+                                <div class="match-score">${scoreDisplay}</div>
+                                <div class="match-team team-away">
+                                    <span class="name ${restricted ? 'restricted-name' : ''}">${awayDisplay}</span>
+                                    <span class="flag">${awayFlag}</span>
+                                </div>
+                            </div>
+
+                            <div class="match-meta-row">
+                                <span class="meta-item"><span class="icon">📅</span> ${m.date} ${dayDisplay ? '— ' + dayDisplay : ''}</span>
+                                <span class="status-badge ${statusClass}">${matchStatus.text}</span>
+                            </div>
+
+                            ${!isFinished && !restricted ? `
+                            <div class="ai-analysis">
+                                <span class="ai-label">🤖 تحليل الذكاء الاصطناعي</span>
+                                <div class="ai-bars">
+                                    <span class="ai-percent home">${Math.round(winProb1)}%</span>
+                                    <div class="bar-track">
+                                        <span class="bar home" style="width:${Math.round(winProb1)}%;"></span>
+                                        <span class="bar away" style="width:${Math.round(winProb2)}%;"></span>
+                                    </div>
+                                    <span class="ai-percent away">${Math.round(winProb2)}%</span>
+                                </div>
+                                <span class="ai-note">بناءً على الإحصائيات</span>
+                            </div>
+                            ` : ''}
+
+                            ${restricted && !isFinished ? `
+                            <div class="restricted-message">
+                                ⏳ هذه المباراة تعتمد على نتيجة مباراة سابقة. ستتوفر التوقعات والإحصائيات بعد تحديد الفريقين المتأهلين.
+                            </div>
+                            ` : ''}
+
+                            <div class="match-actions">
+                                ${!restricted && isNotStarted ? `<button class="${predictClass}" onclick="openNameModal('${matchId}','${m.home}','${m.away}','${m.date}')" ${predictDisabled ? 'disabled' : ''}>
+                                    <span class="btn-icon">🔮</span> ${predictBtnHtml}
+                                </button>` : ''}
+                                ${restricted ? `<button class="btn-predict saved" disabled>⏳ قيد الانتظار</button>` : ''}
+                                ${!restricted ? `<button class="btn-stats" onclick="openTeamStatsModal('${m.home}','${m.away}')">📊 إحصائيات</button>` : ''}
+                                <button class="btn-view-predictions" onclick="openViewPredictionsModal('${matchId}','${m.home}','${m.away}')">📋 توقعات</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById("content").innerHTML = html;
+            document.getElementById("updateTime").textContent =
+                "آخر تحديث: " + new Date().toLocaleTimeString("ar-SA") + " (بيانات تجريبية)";
+        }
+
+        // ============================================================
+        //  NAME MODAL
+        // ============================================================
+        function openNameModal(matchId, team1, team2, date) {
+            if (isMatchRestricted(team1, team2)) {
+                showToast('⚠️ هذه المباراة غير متاحة للتوقع', true);
+                return;
+            }
+
+            nameModalMatch = { matchId, team1, team2, date };
+
+            document.getElementById('nameInput').value = localStorage.getItem('lastUserName') || '';
+            document.getElementById('nameStatus').style.display = 'none';
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('nameSubmitBtn').disabled = false;
+            document.getElementById('nameSubmitBtn').textContent = 'متابعة →';
+
+            document.getElementById('nameModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => document.getElementById('nameInput').focus(), 300);
+        }
+
+        function closeNameModal() {
+            document.getElementById('nameModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('nameSubmitBtn').addEventListener('click', async function() {
+            const name = document.getElementById('nameInput').value.trim();
+            const errorEl = document.getElementById('nameError');
+            const statusEl = document.getElementById('nameStatus');
+
+            if (!name) { errorEl.textContent = '⚠️ الرجاء إدخال اسمك'; return; }
+
+            if (!supabaseClient) {
+                errorEl.textContent = '❌ خطأ في الاتصال بقاعدة البيانات';
+                return;
+            }
+
+            if (isMatchRestricted(nameModalMatch.team1, nameModalMatch.team2)) {
+                errorEl.textContent = '⚠️ هذه المباراة غير متاحة للتوقع';
+                return;
+            }
+
+            this.disabled = true;
+            this.textContent = '⏳ جاري التحقق...';
+            errorEl.textContent = '';
+            statusEl.style.display = 'block';
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from("predictions")
+                    .select("user_name")
+                    .eq("user_name", name)
+                    .limit(1);
+
+                if (error) throw error;
+
+                const isExisting = data && data.length > 0;
+
+                if (isExisting) {
+                    statusEl.className = 'user-status existing';
+                    statusEl.textContent = `👤 مرحباً بعودتك "${name}"!`;
+                    localStorage.setItem('lastUserName', name);
+                    currentUserName = name;
+
+                    const existingPred = await getUserPrediction(name, nameModalMatch.matchId);
+                    if (existingPred) {
+                        errorEl.textContent = `⚠️ لقد توقعت هذه المباراة مسبقاً`;
+                        this.disabled = false;
+                        this.textContent = 'متابعة →';
+                        return;
+                    }
+
+                    await loadUserPredictions(name);
+                    this.textContent = '✅ متابعة للتوقع';
+                    setTimeout(() => {
+                        closeNameModal();
+                        openPredictionModal(nameModalMatch.matchId, nameModalMatch.team1, nameModalMatch.team2,
+                            nameModalMatch.date, name);
+                    }, 600);
+                } else {
+                    statusEl.className = 'user-status new';
+                    statusEl.textContent = `👤 مرحباً "${name}"! أنت لاعب جديد.`;
+                    localStorage.setItem('lastUserName', name);
+                    currentUserName = name;
+                    userPredictionsMap = {};
+
+                    this.textContent = '✅ متابعة للتوقع';
+                    setTimeout(() => {
+                        closeNameModal();
+                        openPredictionModal(nameModalMatch.matchId, nameModalMatch.team1, nameModalMatch.team2,
+                            nameModalMatch.date, name);
+                    }, 600);
+                }
+            } catch (e) {
+                console.error("❌ التحقق من الاسم:", e);
+                errorEl.textContent = '❌ حدث خطأ أثناء التحقق من الاسم';
+                this.disabled = false;
+                this.textContent = 'متابعة →';
+                statusEl.style.display = 'none';
+            }
+        });
+
+        document.getElementById('nameInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') document.getElementById('nameSubmitBtn').click();
+            if (e.key === 'Escape') closeNameModal();
+        });
+
+        // ============================================================
+        //  PREDICTION MODAL
+        // ============================================================
+        function openPredictionModal(matchId, team1, team2, date, userName) {
+            if (isMatchRestricted(team1, team2)) {
+                showToast('⚠️ هذه المباراة غير متاحة للتوقع', true);
+                return;
+            }
+
+            currentMatch = { matchId, team1, team2, date };
+            currentUserName = userName || localStorage.getItem('lastUserName') || '';
+
+            document.getElementById('greetingName').textContent = currentUserName;
+            document.getElementById('modalTeam1').textContent = team1;
+            document.getElementById('modalTeam2').textContent = team2;
+            document.getElementById('optTeam1').textContent = team1;
+            document.getElementById('optTeam2').textContent = team2;
+            document.getElementById('modalFlag1').textContent = getFlag(team1);
+            document.getElementById('modalFlag2').textContent = getFlag(team2);
+            document.getElementById('modalDateTime').textContent = `📅 ${date || 'تاريخ غير معروف'}`;
+
+            document.querySelectorAll('input[name="prediction"]').forEach(el => el.checked = false);
+
+            document.getElementById('predictionModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            const msgEl = document.getElementById('modalMessage');
+            msgEl.textContent = '';
+            msgEl.className = 'modal-message';
+            document.getElementById('modalSubmitBtn').disabled = false;
+            document.getElementById('modalSubmitBtn').textContent = '💾 حفظ التوقع';
+        }
+
+        function closePredictionModal() {
+            document.getElementById('predictionModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('modalSubmitBtn').addEventListener('click', async function() {
+            const userName = currentUserName || localStorage.getItem('lastUserName') || '';
+            const selected = document.querySelector('input[name="prediction"]:checked');
+            const msgEl = document.getElementById('modalMessage');
+
+            if (!userName) {
+                msgEl.textContent = '⚠️ الرجاء إدخال اسمك';
+                msgEl.className = 'modal-message warning';
+                return;
+            }
+
+            if (!selected) {
+                msgEl.textContent = '⚠️ الرجاء اختيار توقع';
+                msgEl.className = 'modal-message warning';
+                return;
+            }
+
+            let prediction = selected.value;
+            if (prediction === 'HOME') prediction = currentMatch.team1;
+            else if (prediction === 'AWAY') prediction = currentMatch.team2;
+
+            this.disabled = true;
+            msgEl.textContent = '⏳ جاري الحفظ...';
+            msgEl.className = 'modal-message';
+
+            const result = await savePrediction(userName, currentMatch.matchId, prediction);
+
+            if (result.success) {
+                msgEl.textContent = result.updated ? '✅ تم تحديث التوقع بنجاح!' : '✅ تم حفظ التوقع بنجاح!';
+                msgEl.className = 'modal-message success';
+                this.disabled = false;
+                if (userName) await loadUserPredictions(userName);
+                loadGames();
+                setTimeout(closePredictionModal, 1200);
+            } else {
+                msgEl.textContent = result.message || '❌ فشل الحفظ';
+                msgEl.className = 'modal-message error';
+                this.disabled = false;
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePredictionModal();
+                closeNameModal();
+            }
+        });
+
+        // ============================================================
+        //  TEAM STATS MODAL
+        // ============================================================
+        function openTeamStatsModal(team1, team2) {
+            if (isMatchRestricted(team1, team2)) {
+                showToast('⚠️ هذه المباراة غير متاحة للإحصائيات', true);
+                return;
+            }
+
+            const modal = document.getElementById('teamStatsModal');
+            const content = document.getElementById('teamStatsContent');
+
+            const stats1 = getTeamStats(team1);
+            const stats2 = getTeamStats(team2);
+            const scorers1 = getTeamScorers(team1);
+            const scorers2 = getTeamScorers(team2);
+
+            const getResultSymbol = (r) => r === 'W' ? '✅' : r === 'L' ? '❌' : '➖';
+            const streak1 = (stats1.results || []).slice(-10).map(r => getResultSymbol(r)).join('') || 'لا توجد مباريات سابقة';
+            const streak2 = (stats2.results || []).slice(-10).map(r => getResultSymbol(r)).join('') || 'لا توجد مباريات سابقة';
+
+            content.innerHTML = `
+                <div class="stats-grid-modal">
+                    <div class="team-stats">
+                        <div class="team-name">${getFlag(team1)} ${team1}</div>
+                        <div class="stat-row"><span class="label">🏆 فوز</span><span class="value green">${stats1.wins}</span></div>
+                        <div class="stat-row"><span class="label">❌ خسارة</span><span class="value red">${stats1.losses}</span></div>
+                        <div class="stat-row"><span class="label">➖ تعادل</span><span class="value gold">${stats1.draws}</span></div>
+                        <div class="stat-row"><span class="label">📊 مباريات</span><span class="value">${stats1.total}</span></div>
+                        <div class="stat-row"><span class="label">⚽ أهداف له</span><span class="value gold">${stats1.goalsFor}</span></div>
+                        <div class="stat-row"><span class="label">⚽ أهداف عليه</span><span class="value red">${stats1.goalsAgainst}</span></div>
+                        <div class="stat-row"><span class="label">📈 نسبة الفوز</span><span class="value gold">${Math.round(stats1.winRate)}%</span></div>
+                        <div class="streak">${streak1}</div>
+                        <div class="scorers">
+                            <strong>⚽ الهدافون:</strong>
+                            ${scorers1.length ? scorers1.map(s => `<span class="scorer">${s.name} <span class="goals">${s.goals}</span></span>`).join('') : 'لا توجد أهداف مسجلة'}
+                        </div>
+                    </div>
+                    <div class="team-stats">
+                        <div class="team-name">${getFlag(team2)} ${team2}</div>
+                        <div class="stat-row"><span class="label">🏆 فوز</span><span class="value green">${stats2.wins}</span></div>
+                        <div class="stat-row"><span class="label">❌ خسارة</span><span class="value red">${stats2.losses}</span></div>
+                        <div class="stat-row"><span class="label">➖ تعادل</span><span class="value gold">${stats2.draws}</span></div>
+                        <div class="stat-row"><span class="label">📊 مباريات</span><span class="value">${stats2.total}</span></div>
+                        <div class="stat-row"><span class="label">⚽ أهداف له</span><span class="value gold">${stats2.goalsFor}</span></div>
+                        <div class="stat-row"><span class="label">⚽ أهداف عليه</span><span class="value red">${stats2.goalsAgainst}</span></div>
+                        <div class="stat-row"><span class="label">📈 نسبة الفوز</span><span class="value gold">${Math.round(stats2.winRate)}%</span></div>
+                        <div class="streak">${streak2}</div>
+                        <div class="scorers">
+                            <strong>⚽ الهدافون:</strong>
+                            ${scorers2.length ? scorers2.map(s => `<span class="scorer">${s.name} <span class="goals">${s.goals}</span></span>`).join('') : 'لا توجد أهداف مسجلة'}
+                        </div>
+                    </div>
+                </div>
+                <button class="modal-btn-close" onclick="closeTeamStatsModal()">إغلاق</button>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTeamStatsModal() {
+            document.getElementById('teamStatsModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ============================================================
+        //  VIEW PREDICTIONS MODAL
+        // ============================================================
+        async function openViewPredictionsModal(matchId, team1, team2) {
+            document.getElementById('viewTeam1').textContent = team1;
+            document.getElementById('viewTeam2').textContent = team2;
+            document.getElementById('viewFlag1').textContent = getFlag(team1);
+            document.getElementById('viewFlag2').textContent = getFlag(team2);
+            document.getElementById('probTeam1').textContent = team1;
+            document.getElementById('probTeam2').textContent = team2;
+
+            const listContainer = document.getElementById('viewPredictionsList');
+            const countSpan = document.getElementById('viewPredictionsCount');
+
+            listContainer.innerHTML = `<div class="empty-state"><span class="icon">⏳</span> جاري التحميل...</div>`;
+            countSpan.textContent = '...';
+
+            const predictionsList = await getPredictionsForMatch(matchId);
+            countSpan.textContent = predictionsList.length;
+
+            let homeCount = 0,
+                awayCount = 0;
+            for (let p of predictionsList) {
+                if (p.prediction === team1) homeCount++;
+                else if (p.prediction === team2) awayCount++;
+            }
+            const total = predictionsList.length;
+            const homePercent = total > 0 ? (homeCount / total) * 100 : 0;
+            const awayPercent = total > 0 ? (awayCount / total) * 100 : 0;
+
+            document.getElementById('probHomePercent').textContent = homePercent.toFixed(1) + '%';
+            document.getElementById('probAwayPercent').textContent = awayPercent.toFixed(1) + '%';
+            document.getElementById('probHomeBar').style.width = Math.max(homePercent, 5) + '%';
+            document.getElementById('probHomeBar').textContent = homePercent.toFixed(0) + '%';
+            document.getElementById('probAwayBar').style.width = Math.max(awayPercent, 5) + '%';
+            document.getElementById('probAwayBar').textContent = awayPercent.toFixed(0) + '%';
+
+            if (total === 0) {
+                document.getElementById('probHomeBar').style.width = '50%';
+                document.getElementById('probHomeBar').textContent = '0%';
+                document.getElementById('probAwayBar').style.width = '50%';
+                document.getElementById('probAwayBar').textContent = '0%';
+            }
+
+            if (!predictionsList || predictionsList.length === 0) {
+                listContainer.innerHTML =
+                    `<div class="empty-state"><span class="icon">📭</span> لا توجد توقعات لهذه المباراة</div>`;
+            } else {
+                let html = '';
+                predictionsList.forEach(p => {
+                    let predText = p.prediction === 'DRAW' ? '🤝 تعادل' : `🏆 ${p.prediction}`;
+                    const status = getPredictionStatus(p);
+                    let statusClass = 'pending';
+                    let statusText = '⏳ قيد الانتظار';
+                    if (status.status === 'correct') { statusClass = 'correct';
+                        statusText = '✅ صحيح'; } else if (status.status === 'wrong') { statusClass = 'wrong';
+                        statusText = '❌ خاطئ'; }
+
+                    html += `
+                        <div class="prediction-item">
+                            <div>
+                                <span class="user" onclick="openPlayerPredictionsModal('${p.user_name || ''}')">${p.user_name || 'مجهول'}</span>
+                                <span class="time">🕒 ${p.created_at ? new Date(p.created_at).toLocaleDateString('ar-SA') : ''}</span>
+                            </div>
+                            <div>
+                                <span class="pred ${status.status === 'correct' ? 'correct' : status.status === 'wrong' ? 'wrong' : ''}">${predText}</span>
+                                <span class="status ${statusClass}">${statusText}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                listContainer.innerHTML = html;
+            }
+
+            document.getElementById('viewPredictionsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeViewPredictionsModal() {
+            document.getElementById('viewPredictionsModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ============================================================
+        //  PLAYER PREDICTIONS MODAL
+        // ============================================================
+        async function openPlayerPredictionsModal(userName) {
+            if (!userName) { showToast('⚠️ اسم المستخدم غير معروف'); return; }
+
+            document.getElementById('playerModalName').textContent = userName;
+            const listContainer = document.getElementById('playerPredictionsList');
+            const correctSpan = document.getElementById('playerCorrectCount');
+            const wrongSpan = document.getElementById('playerWrongCount');
+            const totalSpan = document.getElementById('playerTotalCount');
+
+            listContainer.innerHTML = `<div class="empty-state"><span class="icon">⏳</span> جاري التحميل...</div>`;
+            correctSpan.textContent = '...';
+            wrongSpan.textContent = '...';
+            totalSpan.textContent = '...';
+
+            const predictionsList = await getPredictionsForUser(userName);
+            let correct = 0,
+                wrong = 0;
+            for (let p of predictionsList) {
+                const status = getPredictionStatus(p);
+                if (status.status === 'correct') correct++;
+                else if (status.status === 'wrong') wrong++;
+            }
+
+            correctSpan.textContent = correct;
+            wrongSpan.textContent = wrong;
+            totalSpan.textContent = predictionsList.length;
+
+            if (!predictionsList || predictionsList.length === 0) {
+                listContainer.innerHTML =
+                    `<div class="empty-state"><span class="icon">📭</span> لا توجد توقعات لهذا اللاعب</div>`;
+                document.getElementById('playerPredictionsModal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+
+            let html = '';
+            predictionsList.forEach((p, idx) => {
+                const parts = p.match_id ? p.match_id.split('_') : [];
+                const team1 = parts.length > 1 ? parts[1] : '?';
+                const team2 = parts.length > 2 ? parts[2] : '?';
+                const team1Ar = translateToArabic(team1);
+                const team2Ar = translateToArabic(team2);
+                let predText = p.prediction === 'DRAW' ? '🤝 تعادل' : `🏆 ${p.prediction}`;
+                const status = getPredictionStatus(p);
+                let statusClass = 'pending';
+                let statusText = '⏳ قيد الانتظار';
+                if (status.status === 'correct') { statusClass = 'correct';
+                    statusText = '✅ صحيح'; } else if (status.status === 'wrong') { statusClass = 'wrong';
+                    statusText = '❌ خاطئ'; }
+
+                html += `
+                    <div class="prediction-item">
+                        <div>
+                            <span style="font-weight:800;color:var(--gold-light);">#${idx + 1}</span>
+                            <span>${getFlag(team1Ar)} ${team1Ar} 🆚 ${getFlag(team2Ar)} ${team2Ar}</span>
+                        </div>
+                        <div>
+                            <span class="pred ${status.status === 'correct' ? 'correct' : status.status === 'wrong' ? 'wrong' : ''}">${predText}</span>
+                            <span class="status ${statusClass}">${statusText}</span>
+                            <span class="time" style="display:block;text-align:left;">🕒 ${p.created_at ? new Date(p.created_at).toLocaleDateString('ar-SA') : ''}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            listContainer.innerHTML = html;
+
+            document.getElementById('playerPredictionsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePlayerPredictionsModal() {
+            document.getElementById('playerPredictionsModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ============================================================
+        //  INIT
+        // ============================================================
+        loadGames();
+        setInterval(loadGames, 60000);
+
+        // ربط الدوال للاستخدام العام
+        window.openNameModal = openNameModal;
+        window.closeNameModal = closeNameModal;
+        window.openPredictionModal = openPredictionModal;
+        window.closePredictionModal = closePredictionModal;
+        window.openTeamStatsModal = openTeamStatsModal;
+        window.closeTeamStatsModal = closeTeamStatsModal;
+        window.openViewPredictionsModal = openViewPredictionsModal;
+        window.closeViewPredictionsModal = closeViewPredictionsModal;
+        window.openPlayerPredictionsModal = openPlayerPredictionsModal;
+        window.closePlayerPredictionsModal = closePlayerPredictionsModal;
+        window.loadGames = loadGames;
+        window.showToast = showToast;
+        window.toggleTheme = toggleTheme;
+        window.clearCacheAndReload = clearCacheAndReload;
+    </script>
+
+</body>
+</html>
